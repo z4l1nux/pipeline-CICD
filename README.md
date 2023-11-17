@@ -1,9 +1,12 @@
-# pipeline-CICD
+# Pipeline-CICD
+
 No fluxo de desenvolvimento de software ilustrado na imagem, o processo começa com os desenvolvedores realizando 'commit' e 'push' de suas alterações no GitHub. Estas ações disparam o pipeline CI/CD via GitHub Actions, que executa ferramentas de segurança como Horusec para análise estática e SonarQube para identificar problemas de qualidade e segurança no código.
 Após a aprovação destas etapas, as imagens de container são armazenadas em um registro de imagens (Docker Hub). Com o ArgoCD, uma ferramenta de entrega contínua para Kubernetes, os manifestos da aplicação são sincronizados e promovidos automaticamente para ambientes de teste (HML) e, com a aprovação necessária, para produção.
 O pipeline também inclui ZAP DAST para testes dinâmicos e identificação de vulnerabilidades em tempo real. Finalmente, a aplicação é implantada no ambiente de produção hospedado em um cluster AWS EKS, tornando-a disponível globalmente. Este ciclo destaca a importância da automação e da segurança no desenvolvimento de software moderno.
 
 ![Captura de tela 2023-11-10 122732](https://github.com/z4l1nux/pipeline-CICD/assets/124527204/65d42fdc-6004-4b76-afdf-798b53e3697f)
+
+# Diagrama de Fluxo de Gestão de Vulnerabilidades
 
 Neste fluxo os Desenvolvedores fazendo um 'commit' no GitHub, ativando o Workflow automatizado. Este Workflow é a espinha dorsal do nosso processo de integração contínua, verificando automaticamente o código em busca de problemas de segurança e qualidade.
 Assim que o Workflow é concluído, os resultados são enviados para o Horusec Manager e SonarQube, uma plataforma robusta que inspeciona a qualidade do código e identifica vulnerabilidades. Porém antes deste processo de envio, no ambiente de testes e HML existem aprovadores automatizados que podem quebrar a Build.
