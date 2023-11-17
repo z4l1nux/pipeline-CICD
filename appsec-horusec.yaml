@@ -1,0 +1,24 @@
+name: SecurityPipeline-HORUSEC
+
+on: [push]
+
+permissions: read-all
+jobs:
+  horusec-security:
+    name: horusec-security
+    runs-on: arc-runner-set
+    steps:
+    - uses: actions/checkout@v3
+      with: # Required when commit authors is enabled
+        fetch-depth: 0
+    - name: Installing prerequisites
+      run: |
+        sudo apt update
+        sudo apt install -y curl git jq docker.io docker
+    - name: Installing Horusec Security
+      run: |
+        docker version
+        curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+    - name: Running Horusec Security
+      run: |
+        horusec start -j -G -D -w --log-level="debug" -e="true" -u="http://api.horusec-system:8000" -p="./" -a="SuaKey12345"
